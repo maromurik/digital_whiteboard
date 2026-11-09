@@ -1,74 +1,36 @@
 {
-  "goal_of_the_week": {
-    "title": "GOAL OF THE WEEK",
-    "text": "goal_of_the_week",
-    "days": {
-      "Pondelok": false,
-      "Utorok": false,
-      "Streda": false,
-      "Štvrtok": false,
-      "Piatok": false,
-      "Sobota": false,
-      "Nedeľa": false
+    "tasks": [
+        {
+            "id": 1793026739088,
+            "text": "task1",
+            "completed": false,
+            "priority": 1,
+            "date": 44,
+            "year": 2026,
+            "category": "Pondelok"
+        },
+        {
+            "id": 1793026747718,
+            "text": "Ahoj",
+            "completed": false,
+            "priority": 1,
+            "date": 45,
+            "year": 2026,
+            "category": "Utorok"
+        }
+    ],
+    "brain_dump": "",
+    "goal_of_the_week": {
+        "title": "GOAL OF THE WEEK",
+        "text": "GOTW",
+        "days": {
+            "Pondelok": false,
+            "Utorok": false,
+            "Streda": false,
+            "Štvrtok": false,
+            "Piatok": false,
+            "Sobota": false,
+            "Nedeľa": false
+        }
     }
-  },
-  "days": {
-    "Pondelok": [
-      {
-        "text": "task1",
-        "completed": false
-      }
-    ],
-    "Utorok": [
-      {
-        "text": "task2",
-        "completed": false
-      }
-    ],
-    "Streda": [
-      {
-        "text": "task3",
-        "completed": false
-      }
-    ],
-    "Štvrtok": [
-      {
-        "text": "task4",
-        "completed": false
-      }
-    ],
-    "Piatok": [
-      {
-        "text": "task4",
-        "completed": false
-      }
-    ],
-    "Víkend": [
-      {
-        "text": "task5",
-        "completed": false
-      }
-    ]
-  },
-  "recurring": {
-    "DAILY": [
-      {
-        "text": "daily_task1",
-        "completed": false
-      }
-    ],
-    "WEEKLY": [
-      {
-        "text": "weekly_task1",
-        "completed": false
-      }
-    ],
-    "YEARLY": [
-      {
-        "text": "yearly_task1",
-        "completed": false
-      }
-    ]
-  },
-  "brain_dump": "brain_dump_text\n"
 }

@@ -109,3 +109,5 @@ def is_today(day_key: str, ref_date: datetime.date | None = None) -> bool:
         "Nedeľa": 6,
     }
     return day_indices.get(day_key) == weekday
+def get_date_from_week(week_num: int, year: int) -> datetime.date:
+    return datetime.date.fromisocalendar(year, week_num, 1)

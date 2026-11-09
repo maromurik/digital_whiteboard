@@ -6,18 +6,21 @@ import customtkinter as ctk
 
 class TaskItem(ctk.CTkFrame):
     def __init__(
-        self,
-        master: Any,
-        text: str,
-        completed: bool = False,
-        on_toggle: Optional[Callable[["TaskItem", bool], None]] = None,
-        on_delete: Optional[Callable[["TaskItem"], None]] = None,
-        **kwargs: Any,
+            self,
+            master: Any,
+            task_data: Dict[str, Any],  # ZMENA: Prijímame celý slovník
+            on_toggle: Optional[Callable[["TaskItem", bool], None]] = None,
+            on_delete: Optional[Callable[["TaskItem"], None]] = None,
+            **kwargs: Any,
     ) -> None:
         super().__init__(master, fg_color="transparent", **kwargs)
 
-        self.text = text
-        self._completed = bool(completed)
+        self.task_data = task_data  # Schováme si celý slovník na neskôr!
+
+        # Vytiahneme text a stav, aby ich UI vedelo vykresliť
+        self.text = self.task_data.get("text", "")
+        self._completed = bool(self.task_data.get("completed", False))
+
         self.on_toggle = on_toggle
         self.on_delete = on_delete
 
@@ -106,8 +109,8 @@ class TaskItem(ctk.CTkFrame):
     def set_completed(self, completed: bool) -> None:
         self.completed = completed
 
+
     def get_data(self) -> Dict[str, Any]:
-        return {
-            "text": self.text,
-            "completed": self._completed,
-        }
+        self.task_data["text"] = self.text
+        self.task_data["completed"] = self._completed
+        return self.task_data

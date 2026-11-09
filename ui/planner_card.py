@@ -4,6 +4,8 @@ from typing import Any, Callable, Dict, List, Optional
 import customtkinter as ctk
 
 from ui.task_item import TaskItem
+import time
+import datetime
 
 
 class PlannerCard(ctk.CTkFrame):
@@ -77,11 +79,7 @@ class PlannerCard(ctk.CTkFrame):
 
         if initial_tasks:
             for task_data in initial_tasks:
-                self.add_task(
-                    text=task_data.get("text", ""),
-                    completed=task_data.get("completed", False),
-                    notify=False,
-                )
+                self.add_task(task_data=task_data, notify=False)
 
     def _apply_today_badge(self) -> None:
         if not self.badge_label:
@@ -111,14 +109,25 @@ class PlannerCard(ctk.CTkFrame):
         text = self.entry.get().strip()
         if not text:
             return
-        self.add_task(text=text, completed=False, notify=True)
+
+
+        new_task_data = {
+            "id": int(time.time() * 1000),
+            "text": text,
+            "completed": False,
+            "priority": 1,
+            "date": datetime.datetime.now().isocalendar().week,
+            "year": datetime.datetime.now().isocalendar()[0]
+        }
+
+        self.add_task(task_data=new_task_data, notify=True)
         self.entry.delete(0, "end")
 
-    def add_task(self, text: str, completed: bool = False, notify: bool = True) -> None:
+
+    def add_task(self, task_data: Dict[str, Any], notify: bool = True) -> None:
         task_item = TaskItem(
             master=self.tasks_container,
-            text=text,
-            completed=completed,
+            task_data=task_data,  # Posielame celý slovník do TaskItem!
             on_toggle=self._on_task_toggle,
             on_delete=self._on_task_delete,
         )
@@ -128,6 +137,15 @@ class PlannerCard(ctk.CTkFrame):
 
         if notify and self.on_change:
             self.on_change()
+
+
+        def set_tasks_data(self, tasks_data: List[Dict[str, Any]]) -> None:
+            for item in self.task_items:
+                item.destroy()
+            self.task_items.clear()
+
+            for task_data in tasks_data:
+                self.add_task(task_data=task_data, notify=False)
 
     def _on_task_toggle(self, _task_item: TaskItem, _completed: bool) -> None:
         if self.on_change:
@@ -154,8 +172,4 @@ class PlannerCard(ctk.CTkFrame):
         self.task_items.clear()
 
         for task_data in tasks_data:
-            self.add_task(
-                text=task_data.get("text", ""),
-                completed=task_data.get("completed", False),
-                notify=False,
-            )
+            self.add_task(task_data=task_data, notify=False)
